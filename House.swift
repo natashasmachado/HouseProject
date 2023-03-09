@@ -11,7 +11,7 @@ class House {
     var border: Character
     var fill: Character
     var size: Int
-    init(border: Character = "X", fill: Character = "*" , size: Int) {
+    init(size: Int , border: Character = "X", fill: Character = "*" ) { // starting the init
         self.size = min(max(size, 3), 37) // setting the min & max
         if let borderASCII = border.asciiValue { // asciiValue automatic method for the range
             if borderASCII >= 33 && borderASCII <= 126 {
@@ -33,7 +33,7 @@ class House {
         }
     }
     
-    var perimeter: Int { // 3 sides of the sqare + 2 sides of the (triangle + 2) + 2
+    var perimeter: Int { // 3 sides of the square + 2 sides of the (triangle + 2) + 2
         return (size * 3) + ((size + 2 ) * 2) + 2
     }
     var area: Double {
@@ -54,6 +54,48 @@ class House {
         size = max(3, size - 1 )
     }
     
-    func draw() { }
+    func draw() {
+        var house = (size * 2) + 1
+        var housefill = size + 2
+        var startCspaces = size - (size / 2 )
+        for row in 0..<house {
+            if row < 1 {
+                if size % 2 == 0 {
+                    print(" ", terminator: "")
+                }
+                for i in 0..<size {
+                    if i < startCspaces {
+                        print("  ", terminator: "")
+                    } else {
+                        print(border)
+                        break
+                    }
+                }
+            } else {
+                if row < housefill {
+                    if size >= row {
+                        for _ in 0..<size - row + 1 {
+                            print(" " , terminator:"")
+                        }
+                    }
+                    print(border , terminator: " ")
+                    for _ in 0..<row - 1 {
+                        print(fill , terminator: " ")
+                    }
+                    print(border)
+                } else {
+                    print("  " , terminator: "")
+                    print(border, terminator: " ")
+                    for _ in 0..<(size - 2) {
+                        if row == (size * 2) {
+                            print(border, terminator: " ")
+                        } else {
+                            print( fill , terminator: " ")
+                        }
+                    }
+                    print(border)
+                }
+            }
+        }
+    }
 }
-
