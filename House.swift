@@ -23,7 +23,7 @@ class House {
             self.border = "X" // default for in case of nill
         }
         if let fillASCII = fill.asciiValue {
-            if fillASCII >= 33 && fillASCII <= 126 {
+            if fillASCII >= 33 && fillASCII <= 126 { // asciiValue automatic method for the range
                 self.fill = fill
             } else {
                 self.fill = "*" // default in case off Character
@@ -39,31 +39,31 @@ class House {
     var area: Double {
         return Double (squareArea) + triangleArea
     }
-    var squareArea: Int {
+    var squareArea: Int { // get the area of the square to add to whole figure area
         return size * size
     }
-    var triangleArea: Double {
+    var triangleArea: Double { // get the area of the triangle to add to whole figure area
         let side = Double(size + 2)
         return ((side * side) * 3.squareRoot()) / 4
     }
     
-    func grow() {
+    func grow() { // anything over 37 will default to 37
         size = min(37, size + 1)
     }
-    func shrink() {
+    func shrink() { // anything under 3 will default to 3
         size = max(3, size - 1 )
     }
     
     func draw() {
-        var house = (size * 2) + 1
-        var housefill = size + 2
-        var startCspaces = size - (size / 2 )
+        let house = (size * 2) + 1 // content of the house
+        let housefill = size + 2 // number of char that will fill
+        let startCspaces = size - (size / 2 ) // spaces Charac in the start
         for row in 0..<house {
             if row < 1 {
-                if size % 2 == 0 {
+                if size % 2 == 0 { //  centralize the first Char on the middle
                     print(" ", terminator: "")
                 }
-                for i in 0..<size {
+                for i in 0..<size { // build the 2 line ahead with spaces, border
                     if i < startCspaces {
                         print("  ", terminator: "")
                     } else {
@@ -75,7 +75,7 @@ class House {
                 if row < housefill {
                     if size >= row {
                         for _ in 0..<size - row + 1 {
-                            print(" " , terminator:"")
+                            print(" ", terminator: "")
                         }
                     }
                     print(border , terminator: " ")
@@ -86,14 +86,14 @@ class House {
                 } else {
                     print("  " , terminator: "")
                     print(border, terminator: " ")
-                    for _ in 0..<(size - 2) {
+                    for _ in 0..<(size - 2) {  // filling the square
                         if row == (size * 2) {
                             print(border, terminator: " ")
                         } else {
                             print( fill , terminator: " ")
                         }
                     }
-                    print(border)
+                    print(border) // last line if just filled with border
                 }
             }
         }
